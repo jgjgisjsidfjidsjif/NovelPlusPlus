@@ -6,36 +6,15 @@ using namespace std;
 
 
 
-/*void sceneOne(){
-	char* muchoTexto[5] = {"Anon Y Mous.","As I walked out out in the streets of Laredo","As I walked out out in the street of Laredo one day","As I walked out, I saw a lone cowboy wrapped all in white linen", "Wrapped in white linen, as cold as the clay"};
-				updateBackground (1, 0, false);
-				updateTitle(muchoTexto[0], false, 60,0,120);
-				updateL1(muchoTexto[1], false, 60,0,120);
-				updateL2(muchoTexto[2], false, 60,0,120);
-				updateL3(muchoTexto[3], false, 60,0,120);
-				updateL4(muchoTexto[4], true, 60,0,120);
-}*/
-void updateScene(char* title, char* L1, char* L2, char * L3, char* L4, int bg, int options){
-	char* muchoTexto[5] = {title, L1, L2, L3, L4};
+
+void updateScene(char* title, char* L1, char* L2, char * L3, char* L4, int bg){ //This big function updates the screen's text. First 5 parameters are for title, l1,l2,l3, and l4 respectively. BG allows the user to select the background, and option allows the user to set dialogue boxes.
+	char* screenText[5] = {title, L1, L2, L3, L4};
 				updateBackground (bg, 0, false);
-				updateTitle(muchoTexto[0], false, 60,0,120);
-				updateL1(muchoTexto[1], false, 60,0,120);
-				updateL2(muchoTexto[2], false, 60,0,120);
-				updateL3(muchoTexto[3], false, 60,0,120);
-				updateL4(muchoTexto[4], true, 60,0,120);
-				switch (options){
-				default:
-				break;
-				case 1: 
-					two_options("TEST", "test", true, 0,0,0);
-				break;
-				case 2:
-
-				break;
-				case 3:
-
-				break;
-				}
+				updateTitle(screenText[0], false, 60,0,120);
+				updateL1(screenText[1], false, 60,0,120);
+				updateL2(screenText[2], false, 60,0,120);
+				updateL3(screenText[3], false, 60,0,120);
+				updateL4(screenText[4], true, 60,0,120);
 
 }
 
@@ -44,16 +23,64 @@ void updateScene(char* title, char* L1, char* L2, char * L3, char* L4, int bg, i
 void sortPage (int page){// Yes its gonna be one big switch array.
 	switch (page){
 	case 0:
-					updateScene("AAAAAAAAAAAAAAAAAAAAA.","As I walked out out in the streets of Laredo","As I walked out out in the street of Laredo one day","As I walked out, I saw a lone cowboy wrapped all in white linen", "Wrapped in white linen, as cold as the clay", 1, 0);
+		updateScene("Page 0.",
+			"As I walked out out in the streets of Laredo",
+			"As I walked out out in the street of Laredo one day",
+			"As I walked out, I saw a lone cowboy wrapped all in white linen", 
+			"Wrapped in white linen, as cold as the clay", 1);
 	break;
 	case 1:
-		updateScene("Anon Y dsfsdasdasdasdasdsd.","As I walked out out in the streets of Laredo","As I walked out out in the street of Laredo one day","As I walked out, I saw a lone cowboy wrapped all in white linen", "Wrapped in white linen, as cold as the clay", 1, 0);
+		updateScene("Page 1.",
+			"As I walked out out in the streets of Laredo",
+			"As I walked out out in the street of Laredo one day",
+
+			"As I walked out, I saw a lone cowboy wrapped all in white linen", 
+			"Wrapped in white linen, as cold as the clay", 1);
 	break;
 		case 2:
-		updateScene("Anon Y asdddddddddddddddddddddddddd.","As I walked out out in the streets of Laredo","As I walked out out in the street of Laredo one day","As I walked out, I saw a lone cowboy wrapped all in white linen", "Wrapped in white linen, as cold as the clay", 1, 0);
+			selectedOption = 8; //This is to force the shift keys to be only used for selecting options.
+		updateScene("Page 2.",
+			"As I walked out out in the streets of Laredo",
+			"As I walked out out in the street of Laredo one day",
+			"As I walked out, I saw a lone cowboy wrapped all in white linen", 
+			"Wrapped in white linen, as cold as the clay", 1);
 	break;
-		default:
-		two_options("BRUH", "bruh", true, 0,0,0);
+		case 3:
+			
+			updateScene("Page 3.",
+			"As I walked out out in the streets of Laredo",
+			"As I walked out out in the street of Laredo one day",
+			"As I walked out, I saw a lone cowboy wrapped all in white linen",
+			"Wrapped in white linen, as cold as the clay", 0);
+			two_options("Honk", "Bonk", true, 60,255,120);
+			
+	break;
+			case 4:
+
+				if(selectedOption == 5 || selectedOption == 8 ){
+				page = 3;
+				sortPage(page);
+				}
+				switch (selectedOption){{
+				case 1:
+					updateScene("Page 4.",
+					"You selected Option 1",
+					"As I walked out out in the street of Laredo one day",
+					"As I walked out, I saw a lone cowboy wrapped all in white linen",
+					"Wrapped in white linen, as cold as the clay", 0);
+					break;
+				}
+				
+
+				case 2:{
+			updateScene("Page 4.",
+			"You selected Option 2",
+			"As I walked out out in the street of Laredo one day",
+			"As I walked out, I saw a lone cowboy wrapped all in white linen",
+			"Wrapped in white linen, as cold as the clay", 0);
+			break;
+				}
+			}
 	break;
 	}
 }

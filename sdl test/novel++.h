@@ -12,7 +12,7 @@ using namespace std;
 const int ScreenWidth = 640;
 const int ScreenLength = 480;
 const int ScreenBpp = 32;
-
+int selectedOption = 0;
 
 SDL_Surface* title = NULL;
 SDL_Surface* lineOne = NULL;
@@ -90,6 +90,7 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination)
 // This function loads files. If the files are missing, it will quit the application.
 bool load_files(){
 	
+	//Load the assets.
 	background_1 = LoadOptimizedImages("images/pizza_bg.bmp");
 	background_2 = LoadOptimizedImages("images/starz_bg.bmp");
 	twoOptionBox = LoadOptimizedImages("images/twooption_fg.bmp");
@@ -98,8 +99,8 @@ bool load_files(){
 	
 	dialogue = LoadOptimizedImages("images/dialogue_fg.bmp");
 	
+	//This loads the text files.
 	titleConf = TTF_OpenFont("fonts/oswald.ttf", 24); // TTF_OpenFont("fontfile.ttf", fontSize);
-	
 	subtextConf = TTF_OpenFont("fonts/oswald.ttf", 19); // TTF_OpenFont("fontfile.ttf", fontSize);
 	
 	if(background_1 == NULL){
@@ -148,15 +149,17 @@ bool startSDL(){
 	if (screen == NULL ){
 		return false;
 	}
-	
+
+	//If errors are found during setting up the text library...
 	if (TTF_Init () == -1){
 		
 		return false;
 	}
 	
-	SDL_WM_SetCaption ("Hello World", NULL);
+	SDL_WM_SetCaption ("Hello World from Windows 10 2016 LTSB", NULL);
 
-	int chosenOption = MessageBox(NULL, "Do you want to load a save file? Press Yes to load a file, otherwise press no to create a new save file.", "Save File Detected", MB_ICONQUESTION | MB_YESNO);
+	/*
+	int chosenOption = MessageBox(NULL, "Do you want to load a save file? Press Yes to load a file, otherwise press no to create a new save file.", "Save File Detected. Hello World from Windows 10 2016 LTSB.", MB_ICONQUESTION | MB_YESNO);
 	
 	switch (chosenOption){
 	case IDYES:
@@ -165,7 +168,7 @@ bool startSDL(){
 	case IDNO:
 		MessageBox(NULL, "Save Loading is a WIP. This Message is here for debugging purposes", "Save File Detected", MB_ICONHAND | MB_OK);
 		break;
-	}
+	}*/
 	
 	return true;
 	
@@ -222,7 +225,7 @@ void updateL2 (char* text, bool updateScreen, int R, int G, int B){ //Update Lin
     clearRect.h = 28; 
 
 	SDL_FillRect(screen, &clearRect, SDL_MapRGB(screen->format, 192, 192, 192)); // Fill with grey, adjust as needed
-	lineTwo = TTF_RenderText_Solid (subtextConf, text, textColor);
+	lineTwo = TTF_RenderText_Solid (subtextConf, text, textColor); //Set the text
 	apply_surface (20,375, lineTwo, screen);
 	if (updateScreen == true){
 		SDL_Flip (screen);
@@ -298,11 +301,12 @@ void updateBackground (int background, int dialogueBox, bool updateScreen){ //Cl
 
 }
 
-void helpDialogue(){
+void helpDialogue(){ //When called, this function should activate the help dialogue.
 	MessageBox(NULL, "Keybinds: F1 to activate Help Dialogue, Page Up to flip forward a page, Page Down to flip back a page. Escape to exit the application. Number keys 1,2,3,4 activate each respective portion of the dialogues.", "Help Dialogue", MB_ICONQUESTION | MB_OK);
 }
 
-void two_options(char* dialogue_1, char* dialogue_2, bool updateScreen, int R, int G, int B){
+void two_options(char* dialogue_1, char* dialogue_2, bool updateScreen, int R, int G, int B){ //When called, this should set two options.
+	selectedOption = 5;
 	SDL_Color textColor = {R,G,B};
 	apply_surface (0,0, twoOptionBox, screen);
 	optionLines = TTF_RenderText_Solid (subtextConf, dialogue_1, textColor);
@@ -316,3 +320,4 @@ void two_options(char* dialogue_1, char* dialogue_2, bool updateScreen, int R, i
 	SDL_FreeSurface(optionLines);
 	
 }
+
