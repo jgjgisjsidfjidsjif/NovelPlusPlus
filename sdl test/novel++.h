@@ -4,7 +4,7 @@
 //#include "storyContent.h" //This is where all of the scene methods are stored
 #include <iostream>
 #include <string>
-
+#include "Windows.h"
 
 using namespace std;
 
@@ -105,6 +105,17 @@ bool startSDL(){
 	}
 	
 	SDL_WM_SetCaption ("Hello World", NULL);
+
+	int chosenOption = MessageBox(NULL, "Do you want to load a save file? Press Yes to load a file, otherwise press no to create a new save file.", "Save File Detected", MB_ICONQUESTION | MB_YESNO);
+	
+	switch (chosenOption){
+	case IDYES:
+		MessageBox(NULL, "Save Loading is a WIP. This Message is here for debugging purposes", "Save File Detected", MB_ICONHAND | MB_OK);
+		break;
+	case IDNO:
+		MessageBox(NULL, "Save Loading is a WIP. This Message is here for debugging purposes", "Save File Detected", MB_ICONHAND | MB_OK);
+		break;
+	}
 	
 	return true;
 	
@@ -222,7 +233,7 @@ void updateBackground (int background, int dialogueBox, bool updateScreen){ //Cl
 	case 0:
 			apply_surface (0,0, background_1, screen);
 	break;
-		case 1:
+	case 1:
 			apply_surface (0,0, background_2, screen);
 	break;
 	}
@@ -237,15 +248,6 @@ void updateBackground (int background, int dialogueBox, bool updateScreen){ //Cl
 
 }
 
-void initDialogue(){
-	int chosenOption = MessageBox(NULL, "Do you want to load a save file? Press Yes to load a file, otherwise press no to create a new save file.", "Save File Detected", MB_ICONQUESTION | MB_YESNO);
-	
-	switch (chosenOption){
-	case IDYES:
-		MessageBox(NULL, "Save Loading is a WIP. This Message is here for debugging purposes", "Save File Detected", MB_ICONHAND | MB_OK);
-		break;
-	case IDNO:
-		MessageBox(NULL, "Save Loading is a WIP. This Message is here for debugging purposes", "Save File Detected", MB_ICONHAND | MB_OK);
-		break;
-	}
+void helpDialogue(){
+	MessageBox(NULL, "Keybinds: F1 to activate Help Dialogue, Page Up to flip forward a page, Page Down to flip back a page. Escape to exit the application.", "Help Dialogue", MB_ICONQUESTION | MB_OK);
 }

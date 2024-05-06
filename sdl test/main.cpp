@@ -90,23 +90,17 @@ int main( int argc, char* argv[] ){
 				MessageBox(NULL, "Your screen cannot be initialized. Check your Graphics drivers for issues. Novel++ Cannnot start further.", "Critical Error 3!", MB_ICONHAND | MB_OK);
 		return 3;
 	}
+
+
 	
 	
 	//Main Loop when everything has loaded
 	while(quit == false){
 		
 		if (SDL_PollEvent(&event)){
-			switch (event.key.keysym.sym){
-			case SDLK_F1: 
-				updateTitle("FI pressed", true, 60,0,120);
-				page = 1;
-				break;
-
-				
-			}
 		}
 		
-		else if (event.type == SDL_QUIT){
+		if (event.type == SDL_QUIT){
 			quit = true;
 		}
 		
@@ -124,7 +118,14 @@ int main( int argc, char* argv[] ){
 				MessageBox(NULL, "You went forward a page.", "Page", MB_ICONQUESTION | MB_OK);
 		}
 		
-		
+		if (keystates[SDLK_F1]){
+		helpDialogue();
+		}
+
+
+		if (keystates[SDLK_ESCAPE]){
+			quit = true;
+		}
 		
 		
 	}
