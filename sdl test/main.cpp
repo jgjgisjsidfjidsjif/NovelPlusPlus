@@ -8,38 +8,10 @@
 #include "Windows.h"
 
 
+
 using namespace std;
 	const char* muchoTexto[] = {"Anon Y Mous.","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid","As I walked out out in the streets of Laredo","As I walked out out in the street of Laredo one day","As I walked out, I saw a lone cowboy"};
 
-// This function loads files. If the files are missing, it will quit the application.
-bool load_files(){
-	
-	background_1 = LoadOptimizedImages("images/pizza_bg.bmp");
-	background_2 = LoadOptimizedImages("images/starz_bg.bmp");
-	
-	dialogue = LoadOptimizedImages("images/dialogue_fg.bmp");
-	
-	titleConf = TTF_OpenFont("fonts/oswald.ttf", 24); // TTF_OpenFont("fontfile.ttf", fontSize);
-	
-	subtextConf = TTF_OpenFont("fonts/oswald.ttf", 19); // TTF_OpenFont("fontfile.ttf", fontSize);
-	
-	if(background_1 == NULL){
-		return false;
-	}
-	if(background_2 == NULL){
-		return false;
-	}
-	
-	if(dialogue == NULL){
-		return false;
-	}
-	
-	if(titleConf == NULL){
-		return false;
-	}
-	
-	return true;
-}
 
 void exit(){ //This function frees everything and closes the app.
 	SDL_FreeSurface(title);
@@ -107,14 +79,14 @@ int main( int argc, char* argv[] ){
 		Uint8 *keystates = SDL_GetKeyState(NULL);
 
 		if (keystates[SDLK_PAGEDOWN]){
-						sortPage(page - 1);
 				page = page - 1; 
+				sortPage(page);
 				MessageBox(NULL, "You went back a page.", "Page", MB_ICONQUESTION | MB_OK);
 		}
 
 		if (keystates[SDLK_PAGEUP]){
-						sortPage(page + 1);
 				page = page + 1;
+				sortPage(page);
 				MessageBox(NULL, "You went forward a page.", "Page", MB_ICONQUESTION | MB_OK);
 		}
 		

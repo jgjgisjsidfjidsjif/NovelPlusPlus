@@ -19,10 +19,14 @@ SDL_Surface* lineOne = NULL;
 SDL_Surface* lineTwo = NULL;
 SDL_Surface* lineThree = NULL;
 SDL_Surface* lineFour = NULL;
+SDL_Surface* optionLines = NULL;
 
 SDL_Surface* screen = NULL;
 SDL_Surface* background_1 = NULL;
 SDL_Surface* background_2 = NULL;
+SDL_Surface* twoOptionBox = NULL;
+SDL_Surface* threeOptionBox = NULL;
+SDL_Surface* fourOptionBox = NULL;
 SDL_Surface* dialogue = NULL;
 
 //Event structure that will be used
@@ -82,6 +86,52 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination)
 	
 	
 }
+
+// This function loads files. If the files are missing, it will quit the application.
+bool load_files(){
+	
+	background_1 = LoadOptimizedImages("images/pizza_bg.bmp");
+	background_2 = LoadOptimizedImages("images/starz_bg.bmp");
+	twoOptionBox = LoadOptimizedImages("images/twooption_fg.bmp");
+	threeOptionBox = LoadOptimizedImages("images/threeoption_fg.bmp");
+	fourOptionBox = LoadOptimizedImages("images/fouroption_fg.bmp");
+	
+	dialogue = LoadOptimizedImages("images/dialogue_fg.bmp");
+	
+	titleConf = TTF_OpenFont("fonts/oswald.ttf", 24); // TTF_OpenFont("fontfile.ttf", fontSize);
+	
+	subtextConf = TTF_OpenFont("fonts/oswald.ttf", 19); // TTF_OpenFont("fontfile.ttf", fontSize);
+	
+	if(background_1 == NULL){
+		return false;
+	}
+	if(background_2 == NULL){
+		return false;
+	}
+	
+	if(twoOptionBox == NULL){
+		return false;
+	}
+
+	if(threeOptionBox == NULL){
+		return false;
+	}
+
+	if(fourOptionBox == NULL){
+		return false;
+	}
+
+	if(dialogue == NULL){
+		return false;
+	}
+	
+	if(titleConf == NULL){
+		return false;
+	}
+	
+	return true;
+}
+
 
 //This function starts up SDL functions, if anything unusual is detected, it will return false
 bool startSDL(){
@@ -249,5 +299,20 @@ void updateBackground (int background, int dialogueBox, bool updateScreen){ //Cl
 }
 
 void helpDialogue(){
-	MessageBox(NULL, "Keybinds: F1 to activate Help Dialogue, Page Up to flip forward a page, Page Down to flip back a page. Escape to exit the application.", "Help Dialogue", MB_ICONQUESTION | MB_OK);
+	MessageBox(NULL, "Keybinds: F1 to activate Help Dialogue, Page Up to flip forward a page, Page Down to flip back a page. Escape to exit the application. Number keys 1,2,3,4 activate each respective portion of the dialogues.", "Help Dialogue", MB_ICONQUESTION | MB_OK);
+}
+
+void two_options(char* dialogue_1, char* dialogue_2, bool updateScreen, int R, int G, int B){
+	SDL_Color textColor = {R,G,B};
+	apply_surface (0,0, twoOptionBox, screen);
+	optionLines = TTF_RenderText_Solid (subtextConf, dialogue_1, textColor);
+	apply_surface (70,110, optionLines, screen);
+	SDL_FreeSurface(optionLines);
+	optionLines = TTF_RenderText_Solid (subtextConf, dialogue_2, textColor);
+	apply_surface (330,110, optionLines, screen);
+	if (updateScreen == true){
+		SDL_Flip (screen);
+	}
+	SDL_FreeSurface(optionLines);
+	
 }
